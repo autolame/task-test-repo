@@ -48,7 +48,10 @@ public class ShopController : MonoBehaviour
         if (groceryItems.Count > 0)
         {
             totalPriceGameObject.SetActive(!totalPriceGameObject.activeSelf);
-            audioSource.PlayOneShot(cashRegisterSound);
+            if (totalPriceGameObject.activeSelf)
+            {
+                audioSource.PlayOneShot(cashRegisterSound);
+            }
         }
     }
 
