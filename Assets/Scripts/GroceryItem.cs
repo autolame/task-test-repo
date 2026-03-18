@@ -9,6 +9,7 @@ public class GroceryItem : MonoBehaviour
     [SerializeField]
     private GameObject itemPrefab;
 
+    public string ItemName { get => itemName; }
     public float Price { get => price; }
     public GameObject ItemPrefab { get => itemPrefab; }
 
