@@ -9,6 +9,7 @@ public class GrocerySlot : MonoBehaviour
     private ParticleSystem removeItemParticleSystem;
 
     public GroceryItem CurrentItem { get; private set; }
+    public Collider CurrentItemCollider { get; private set; }
 
     private void Awake()
     {
@@ -20,6 +21,9 @@ public class GrocerySlot : MonoBehaviour
     {
         var newItem = Instantiate(groceryItem.ItemPrefab, originPosition, Quaternion.identity, transform);
         CurrentItem = newItem.GetComponentInChildren<GroceryItem>();
+        CurrentItem.enabled = false; // Disable interaction while animating
+        CurrentItemCollider = CurrentItem.GetComponent<Collider>();
+        CurrentItemCollider.enabled = false; // Disable collider while animating
         AnimatePlacingItem(originPosition);
         newItemParticleSystem.Stop();
         removeItemParticleSystem.Stop();
