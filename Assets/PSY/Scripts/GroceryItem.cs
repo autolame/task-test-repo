@@ -16,6 +16,6 @@ public class GroceryItem : MonoBehaviour
     private void OnMouseDown()
     {
         Debug.Log($"Grocery item '{itemName}' clicked!");
-        ShopController.Instance.AddItem(this);
+        ShopController.Instance.AddItem(this, transform.parent.position);
     }
 }

@@ -17,6 +17,14 @@ public class ShopController : MonoBehaviour
     private GameObject totalPriceGameObject;
     [SerializeField]
     private TextMeshProUGUI totalPriceText;
+    [SerializeField]
+    private AudioSource audioSource;
+    [SerializeField]
+    private AudioClip cashRegisterSound;
+    [SerializeField]
+    private AudioClip itemAddedSound;
+    [SerializeField]
+    private AudioClip itemRemovedSound;
 
     private void Awake()
     {
@@ -40,6 +48,7 @@ public class ShopController : MonoBehaviour
         if (groceryItems.Count > 0)
         {
             totalPriceGameObject.SetActive(!totalPriceGameObject.activeSelf);
+            audioSource.PlayOneShot(cashRegisterSound);
         }
     }
 
@@ -59,13 +68,13 @@ public class ShopController : MonoBehaviour
         }
     }
 
-    public void AddItem(GroceryItem groceryItem)
+    public void AddItem(GroceryItem groceryItem, Vector3 originPosition)
     {
         foreach (var slot in grocerySlots)
         {
             if (slot.CurrentItem == null)
             {
-                slot.PlaceItem(groceryItem);
+                slot.PlaceItem(groceryItem, originPosition);
 
                 if (groceryItems.Count <= grocerySlots.Count)
                 {
@@ -73,6 +82,7 @@ public class ShopController : MonoBehaviour
                 }
                 totalPrice = CalculateTotalPrice();
                 ShowPricesOnGUI();
+                audioSource.PlayOneShot(itemAddedSound);
                 break;
             }
         }
@@ -83,6 +93,7 @@ public class ShopController : MonoBehaviour
         groceryItems.Remove(groceryItem);
         totalPrice = CalculateTotalPrice();
         ShowPricesOnGUI();
+        audioSource.PlayOneShot(itemRemovedSound);
     }
 
     private float CalculateTotalPrice()
