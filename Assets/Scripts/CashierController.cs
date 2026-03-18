@@ -2,15 +2,12 @@ using UnityEngine;
 
 public class CashierController : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField]
+    private Animator animator;
 
-    // Update is called once per frame
-    void Update()
+    private void OnMouseDown()
     {
-        
+        Debug.Log("Cashier clicked!");
+        animator.SetTrigger("Wave");
     }
 }
